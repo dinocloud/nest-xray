@@ -63,13 +63,13 @@ describe("HttpTracingMiddleware", () => {
     });
 
     it("should remove the query string", async () => {
-      await new Promise((resolve) => tracingMiddleware.use(req, res, resolve));
+      await new Promise((resolve) => tracingMiddleware.use(req, res, resolve as () => void));
 
       expect(req.segment.http.request.url).toEqual("https://example.com/path");
     });
 
     it("should persist the generated segment", async () => {
-      await new Promise((resolve) => tracingMiddleware.use(req, res, resolve));
+      await new Promise((resolve) => tracingMiddleware.use(req, res, resolve as () => void));
 
       expect(tracingService.setRootSegment).toHaveBeenCalledTimes(1);
       expect(tracingService.setRootSegment).toHaveBeenCalledWith(req.segment);

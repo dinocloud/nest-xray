@@ -1,5 +1,6 @@
 // @ts-ignore
-import { HttpService, INestApplication } from "@nestjs/common";
+import { INestApplication } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Segment } from "aws-xray-sdk";
 import * as request from "supertest";
@@ -140,7 +141,6 @@ describe("HttpClient (e2e)", () => {
           request: expect.objectContaining({
             method: "GET",
             url: expect.stringMatching(/^http:\/\/127.0.0.1:[0-9]{1,5}\/url/),
-            user_agent: expect.stringMatching(/^node-superagent/),
           }),
           response: expect.objectContaining({
             status: 200,

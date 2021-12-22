@@ -3,10 +3,11 @@ import {
   AxiosInterceptor,
   AxiosRejectedInterceptor,
   AxiosResponseCustomConfig,
-} from "@narando/nest-axios-interceptor";
-import { HttpService, Injectable } from "@nestjs/common";
+} from "@dinocloud/nest-axios-interceptor";
+import { Injectable } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
 import { Subsegment } from "aws-xray-sdk";
-import { getCauseTypeFromHttpStatus } from "aws-xray-sdk-core/lib/utils";
+import { getCauseTypeFromHttpStatus } from "aws-xray-sdk-core/dist/lib/utils";
 import { AxiosRequestConfig } from "axios";
 import { ClientRequest, IncomingMessage } from "http";
 import { TracingService } from "../../core";
@@ -41,10 +42,11 @@ export class TracingAxiosInterceptor extends AxiosInterceptor<TracingConfig> {
           subSegment,
         };
 
-        config.headers[
-          HEADER_TRACE_CONTEXT
-        ] = this.tracingService.getTracingHeader(subSegment);
-
+        if (config.headers){
+          config.headers[
+            HEADER_TRACE_CONTEXT
+          ] = this.tracingService.getTracingHeader(subSegment);
+        }
         return config;
       } catch (err) {
         if (err instanceof TracingNotInitializedException) {

@@ -1,8 +1,8 @@
 import {
   AxiosFulfilledInterceptor,
   AxiosRejectedInterceptor,
-} from "@narando/nest-axios-interceptor";
-import { HttpService } from "@nestjs/common";
+} from "@dinocloud/nest-axios-interceptor";
+import { HttpService } from "@nestjs/axios";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Subsegment } from "aws-xray-sdk";
 import {
@@ -203,6 +203,8 @@ describe("TracingAxiosInterceptor", () => {
             subSegment,
           },
         } as AxiosRequestConfig,
+        data: [],
+        statusText: "OK"
       } as AxiosResponse;
     });
 
