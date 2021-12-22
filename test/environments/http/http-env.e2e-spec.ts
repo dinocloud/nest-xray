@@ -76,7 +76,6 @@ describe("HttpEnvironment (e2e)", () => {
             client_ip: "::ffff:127.0.0.1",
             method: "GET",
             url: expect.stringMatching(/^http:\/\/127.0.0.1:[0-9]{1,5}\/url/),
-            
           }),
           response: expect.objectContaining({
             status: 200,
